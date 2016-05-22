@@ -25,4 +25,4 @@ def main(parent, args):										# required
 
 
 if __name__ == "__main__":
-	main()
+	main(__appname, sys.argv)
