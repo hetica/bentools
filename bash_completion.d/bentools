@@ -1,0 +1,17 @@
+# From https://github.com/hetica/bentools revision e931a8b46d9582672cc506e45ad9b4f4d6fbd743
+_bentools()
+{
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="manifest2bed mytest1 mytest2 vcfstat"
+
+  case $prev in
+      bentools)
+          COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+          ;;
+  esac
+  return 0
+}
+complete -F _bentools -o default bentools

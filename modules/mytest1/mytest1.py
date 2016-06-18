@@ -4,7 +4,7 @@
 Ce module ne sert strictement à rien
 """
 
-import sys, os
+import sys, os												# required
 
 __appname = "mytest1"										# required
 __licence = "none"
@@ -19,10 +19,14 @@ def helpme(parent):											# required
 
 def main(parent, args):										# required
 	"""Pas glop"""
+	argsChk(parent, args)
+	print("Work in progress...")
 	print("App caller: ", parent)
 	for a in args:
 		print(a)
 
 
 if __name__ == "__main__":
-	main(__appname, sys.argv)
+	main(__appname, sys.argv)								# required
+
+
