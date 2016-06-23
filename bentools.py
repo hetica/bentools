@@ -6,7 +6,7 @@ import importlib					# I could have use __import__ also
 
 __appname = "bentools"
 __licence = "GPL"
-__version = "0.2"
+__version = "0.3"
 __author = "Benoit Guibert <benoit.guibert@free.fr>"
 __modulespath = os.path.dirname( os.path.realpath( __file__ ) ) + "/modules/"
 
@@ -26,7 +26,9 @@ def helpme():
 	modulesList = os.listdir(__modulespath)
 	for m in modulesList:
 		module = loadModule(__modulespath, m)
-		print("\t", module.__appname, "\t", module.__shortdesc)
+		tab="\t"
+		if len(module.__appname) < 5: tab += tab	# manage spaces between appname & short description
+		print("\t", module.__appname, tab, module.__shortdesc)
 	print("")
 	sys.exit()
 

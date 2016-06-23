@@ -5,7 +5,7 @@ _bentools()
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  opts="manifest2bed mytest1 mytest2 vcfstat"
+  opts="init manifest2bed sff2vcf vcfstat"
 
   case $prev in
       bentools)
