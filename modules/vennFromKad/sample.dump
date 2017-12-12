@@ -1,0 +1,15 @@
+kmer	toto	titi	tutu
+aaaa	toto|34	titi|5	tutu|23
+aaaa	toto|34	titi|5	tutu|23
+aaat	toto|5	titi|25	tutu|72
+aaac	toto|4	titi|34
+aaac	toto|4	titi|34
+aaag	titi|65	tutu|44
+aata	toto|21	tutu|89
+aatt	toto|6
+aatc	titi|54
+aatg	tutu|45
+aaca	toto|6	titi|9
+aact	tutu|3456
+aacc	titi|42	tutu|63
+

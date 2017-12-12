@@ -1,0 +1,4 @@
+- Bien séparer la séquence fournie du reverse complément
+- peut-être n'accepter qu'une seule séquence ou fichier en entrée ???
+- BUG : gérer une exception pour les caractères non gérés
+- Accepter aussi les fichiers

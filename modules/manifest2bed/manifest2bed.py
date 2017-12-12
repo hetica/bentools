@@ -21,29 +21,31 @@ Section [Targets]
 
 3. Regrouper 
 ------------
-	* regrouper les lignes par le champs name ($1) jusqu'à la parenthèse (mais pas le dernier nombre), 
-	* en prenant le + petit "start" et la plus grand "End"
-	* et en enlevant du nom le dernier nombre
+    * regrouper les lignes par le champs name ($1) jusqu'à la parenthèse (mais pas le dernier nombre), 
+    * en prenant le + petit "start" et la plus grand "End"
+    * et en enlevant du nom le dernier nombre
 """
+import sys
 
+__appname__ = "manifest2bed"
+__shortdesc__ = "Translate Illumina manifest to BED file."
+__licence__ = "none"
+__version__ = "0.1"
+__author__ = "Benoit Guibert <benoit.guibert@free.fr>"
 
-__appname = "manifest2bed"
-__shortdesc = "Translate Illumina manifest to BED file."
-__licence = "none"
-__version = "0.1"
-__author = "Benoit Guibert <benoit.guibert@free.fr>"
+def helpme(parent):                                         # required
+    print("\nUsage: {} {} <manifest file> <output.bed>\n".format(parent, __appname__))
+    sys.exit()
 
-def helpme(parent):											# required
-	print("\nUsage:	{} {} <manifest file> <output.bed>\n".format(parent, __appname))
+def args_ck(parent):
+    args = sys.argv[1:] if __appname__ in sys.argv[0] else sys.argv[2:]
+    if len(args) != 3:
+        helpme(parent)
+    return args
 
-def args_ck(parent, args):
-	if len(args) != 3:
-		helpme(parent)
-		sys.exit()
-
-def main(parent, args):
-	args_ck(parent, args)
-	print("Work in progress...")
+def main(parent):
+    args = args_ck(parent)
+    print("Work in progress...")
 
 if __name__ == "__main__":
-	main(parent, sys.argv)
+    main(__appname__)

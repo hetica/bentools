@@ -2,56 +2,58 @@
 # -*- coding:utf8 -*-
 
 import sys, os
-import importlib					# I could have use __import__ also
+import importlib                            # I could have use __import__ also
 
-__appname = "bentools"
-__licence = "GPL"
-__version = "0.3"
-__author = "Benoit Guibert <benoit.guibert@free.fr>"
-__modulespath = os.path.dirname( os.path.realpath( __file__ ) ) + "/modules/"
+__appname__ = "bentools"
+__licence__ = "GPL"
+__version__ = "0.6"
+__author__ = "Benoit Guibert <benoit.guibert@free.fr>"
+__modulespath__ = os.path.dirname( os.path.realpath( __file__ ) ) + "/modules/"
 
-def loadModule(__modulespath, m):
-	"Load sub-command"
-	sys.path.append(__modulespath + m)
-	module = importlib.import_module(m, package=None)
-	return module
+
+def loadModule(m):
+    "Load sub-command"
+    sys.path.append(__modulespath__ + m)
+    module = importlib.import_module(m, package=None)
+    return module
+
 
 def helpme():
-	"First level help"
-	appname = os.path.split(sys.argv[0])[1]
-	print("\nProgram: {} (Tools for small Bioinformatics stuffs)".format(__appname))
-	print("Version: {}".format(__version))
-	print("\nUsage:\t{} <command> [options]".format(__appname))
-	print("\nCommands:")
-	modulesList = os.listdir(__modulespath)
-	for m in modulesList:
-		module = loadModule(__modulespath, m)
-		tab="\t"
-		if len(module.__appname) < 5: tab += tab	# manage spaces between appname & short description
-		print("\t", module.__appname, tab, module.__shortdesc)
-	print("")
-	sys.exit()
+    "First level help"
+    appname = os.path.split(sys.argv[0])[1]
+    print("\nProgram: {} (Tools for small Bioinformatics stuffs)".format(__appname__))
+    print("Version: {}".format(__version__))
+    print("\nUsage:\t{} <command> [options]".format(__appname__))
+    print("\nAvailable modules:")
+    print(modules_list())
+    sys.exit()
+
+
+def modules_list ():
+    """ List all modules availables """
+    module_list = ''
+    modulesList = os.listdir(__modulespath__)
+    max_length = max(len(a) for a in modulesList) + 2
+    for m in modulesList:
+        module = loadModule(m)
+        module_list += "  {}{}\n".format(m.ljust(max_length), module.__shortdesc__)
+    return module_list
+
 
 def main():
-	nbArgs = len(sys.argv)
-	# if none argument: print global help
-	if nbArgs == 1:
-		helpme()
-	# if two arguments, print sub-command help
-	if nbArgs == 2:
-		try:
-			module = loadModule(__modulespath, sys.argv[1])
-			module.helpme(__appname)
-		except ImportError:
-			print("No module named '{}'".format(sys.argv[1]))
-			helpme()
-	# if more than two arguments, load main function of sub-command
-	if nbArgs > 2:
-		try:
-			module = loadModule(__modulespath, sys.argv[1])
-			module.main(__appname, sys.argv[1:])
-		except:
-			sys.exit()
+    nbArgs = len(sys.argv)
+    # if none argument: print global help
+    if nbArgs == 1:
+        helpme()
+    elif not sys.argv[1] in os.listdir(__modulespath__):
+        print("\nModule '{}' not found".format(sys.argv[1]))
+        print("\nModules availables:")
+        print(modules_list())
+        sys.exit()
+    else:
+        module = loadModule(sys.argv[1])
+        module.main(__appname__)
+
 
 if __name__ == "__main__":
-	main()
+    main()
