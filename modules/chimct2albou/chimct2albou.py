@@ -58,24 +58,24 @@ def parseTSVfile (tsv_file):
                         GSNAP_mapped_reads = v.split('=')[1].split()[0][1:].rstrip("'")                         # 18
                         GSNAP_total_reads = v.split('=')[1].split()[-1][:-1].rstrip("'")                        # 19
                         GSNAP_ratio = str(int(GSNAP_mapped_reads) / int(GSNAP_total_reads))                     # 20
-                mRNA_IDs = split_line[13].split('=')[1]                                                         # 21
-                Annotation_type = split_line[14].split('=')[1]                                                  # 22
-                Description_genes = split_line[15].split('=')[1]                                                # 23
-                Exon_IDs = split_line[16].split('=')[1]                                                         # 24
-                Exon_end_distance = split_line[17]
+                mRNA_IDs = split_line[13].split('=')[1].rstrip('"')                                             # 21
+                Annotation_type = split_line[14].split('=')[1].rstrip('"')                                      # 22
+                Description_genes = split_line[15].split('=')[1].rstrip('"')                                    # 23
+                Exon_IDs = split_line[16].split('=')[1].rstrip('"')                                             # 24
+                Exon_end_distance = split_line[17].rstrip('"')
                 Exon1_end_distance = Exon_end_distance.split('=')[1].split('---')[0]                            # 25
                 Exon2_end_distance = Exon_end_distance.split('=')[1].split('---')[1]                            # 26
-                Exon_rank = split_line[18]                  
+                Exon_rank = split_line[18].rstrip('"')                  
                 Exon1_rank = Exon_rank.split('=')[1].split('---')[0]                                            # 27
                 Exon2_rank = Exon_rank.split('=')[1].split('---')[1]                                            # 28
-                Read_id = split_line[19].split('=')[1]                                                          # 29
-                Pos_junction = split_line[20].split('=')[1]                                                     # 30
-                Read_seq = split_line[21].split('=')[1]                                                         # 31
-                Profil_support = split_line[22].split('=')[1]                                                   # 32
-                Profil_location = split_line[23].split('=')[1]                                                  # 33
-                Nb_spanning_reads = split_line[24].split('=')[1]                                                # 34
-                Nb_spanning_PE = split_line[25].split('=')[1]                                                   # 35
-                Primers = split_line[26].split('=')[1].rstrip()                                                 # 36
+                Read_id = split_line[19].split('=')[1].rstrip('"')                                              # 29
+                Pos_junction = split_line[20].split('=')[1].rstrip('"')                                         # 30
+                Read_seq = split_line[21].split('=')[1].rstrip('"')                                             # 31
+                Profil_support = split_line[22].split('=')[1].rstrip('"')                                       # 32
+                Profil_location = split_line[23].split('=')[1].rstrip('"')                                      # 33
+                Nb_spanning_reads = split_line[24].split('=')[1].rstrip('"')                                    # 34
+                Nb_spanning_PE = split_line[25].split('=')[1].rstrip('"')                                       # 35
+                Primers = split_line[26].split('=')[1].rstrip('"\n')                                            # 36
                 # print all line's fields
                 print(Id, Name, Chr1, Pos1, Strand1, Chr2, Pos2, Strand2, Chim_value, Spanning_junction, Spanning_PE, 
                 Class, Pseudogene, Anchored_chimera, PE_chimera, StringencyTest, Fusion_distance, GSNAP_mapped_reads, 
@@ -100,10 +100,10 @@ def usage(appname):
     )    
     parser = argparse.ArgumentParser(usage=usage)
     ### OPTION
-    parser.add_argument("tsvfiles",                          # mandatory positional argument
-                        help = 'mandatory files (one or more)',          # help text
-                        nargs = 1,                        # argument options number
-                        metavar = ("tsvfile1 ..."),     # option name to display
+    parser.add_argument("tsvfiles",                             # mandatory positional argument
+                        help = 'chimCT TSV file (mandatory)',   # help text
+                        nargs = 1,                              # argument options number
+                        metavar = ("chimct.tsv"),           # option name to display
                         )
     ### VERSIONNING
     parser.add_argument('-v', '--version',              # positional argument

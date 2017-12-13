@@ -30,7 +30,7 @@ def helpme():
 
 
 def modules_list ():
-    """ List all modules availables """
+    """ List all available modules"""
     module_list = ''
     modulesList = os.listdir(__modulespath__)
     max_length = max(len(a) for a in modulesList) + 2

@@ -10,9 +10,11 @@
     - licence
 * Créer une nouvelle variable globale pour catégoriser les app avec --help
 * BUG : si on ajoute un module qui a un nom de commande linux, on a des trucs bizarres (test, ls)
-* Intégrer init dans le même fichier que bentools
-  * supprimer init pour ne conserver que '-a --add', '-d --del', '-c --completion'
-  * modifier le --help pour s'adapter 
+    * tester si la nouvelle app correspond à une commande bash
+* Sortir le manager des modules
+    * cela permet de supprimer 'manager' pour ne conserver que '-a --add', '-d --del', '-c --completion'
+    * En créant un répertoire lib et en mettant le manager dedans ??
+    * modifier le --help pour s'adapter 
 * créer une option --todo (qui affiche le contenu du TODO.md, ou qui le lance dans un éditeur) 
 * créer une option --changelog ( qui affiche le contenu de CHANGELOG.md, ou qui le lance dans un éditeur)
 * créer une option --readme  (qui affiche le contenu de READE.md)

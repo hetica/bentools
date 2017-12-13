@@ -61,13 +61,16 @@ complete -F _{parent} -o default {parent}
     with open( bashrc_file, 'r+') as stream:
         bashrc = stream.read()
         if not keyword in bashrc:
-            stream.write(bashrc + bashrc_new_header + bashrc_new_body)
+            stream.write(bashrc_new_header + bashrc_new_body)
         
     ### Write completion file
+    bold = '\033[1m'
+    end = '\033[0m'
     completion_file = autocomplete_dir + '/' + parent + '_completion'
     with open(completion_file, 'w') as file: 
         file.write(content)
-        print('\nexecute :\nsource {}\nto refresh {} completion\n'.format(completion_file, parent))
+        print('\nPlease execute :\n{bold}source {comp_file}{end}\nto refresh {parent} completion\n'.
+                    format(comp_file=completion_file, parent=parent, bold=bold, end=end))
     
 
 def appContent(parent, appname, shortdesc):
