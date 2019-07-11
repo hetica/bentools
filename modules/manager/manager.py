@@ -13,7 +13,7 @@ from pathlib import Path
 import shutil
 from getpass import getpass
 
-__appname__ = "init"
+__appname__ = "manager"
 __licence__ = "none"
 __version__ = "0.1"
 __author__ = "Benoit Guibert <benoit.guibert@free.fr>"
@@ -210,8 +210,8 @@ def argsChk(parent):
         if '--del' in args:
             ind = args.index('--del')
             return { 'type':'del', 'name': args[ind+1]}
-        if '--comp' in args:
-            ind = args.index('--comp')
+        if '--complete' in args:
+            ind = args.index('--complete')
             return { 'type':'complete'}
     except IndexError:
         helpme(parent)
@@ -224,14 +224,14 @@ def helpme(parent):
     print("\n{}\n".format(__shortdesc__))
     if parent == __appname__:
         print("Usage:")
-        print("\t{} --add <app_name>\t: append a new app".format(__appname__))
-        print("\t{} --del <app_name>\t: delete an app".format(__appname__))
-        print("\t{} --comp\t\t\t: update auto-completion\n".format(__appname__))
-    else:   
+        print("  {} --add <app_name>\t: append a new app".format(__appname__))
+        print("  {} --del <app_name>\t: delete an app".format(__appname__))
+        print("  {} --complete\t\t: update auto-completion\n".format(__appname__))
+    else:
         print("Usage:")
-        print("\t{} {} --add <app_name>\t: append a new app".format(parent, __appname__))
-        print("\t{} {} --del <app_name>\t: delete an app".format(parent, __appname__))
-        print("\t{} {} --comp\t\t\t: update auto-completion\n".format(parent, __appname__))
+        print("  {} {} --add <app_name>\t: append a new app".format(parent, __appname__))
+        print("  {} {} --del <app_name>\t: delete an app".format(parent, __appname__))
+        print("  {} {} --complete\t\t: update auto-completion\n".format(parent, __appname__))
     sys.exit()
 
 
