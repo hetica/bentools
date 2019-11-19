@@ -1,0 +1,12 @@
+Creation of a default config file for CracTools
+# Date: Fri Oct 20 17:27:02 2017
+# Module:  (v 1.25)
+# Script: chimCT
+# Summary:
+# 
+# Id    Chr1    Pos1    Comments        Others
+om110223        15      74023407        mRNA_IDs=ENST00000268058---ENST00000254066      Exon_end_distances=0---2
+om110223        15      74023409        mRNA_IDs=ENST00000268058---ENST00000254066      Exon_end_distances=2---2
+om110223        17      40331397        mRNA_IDs=ENST00000254066---ENST00000268058      Exon_end_distances=2---0
+om110223        5       131796827       mRNA_IDs=ENST00000623690---ENST00000328046      Exon_IDs=ENSE00003758704---N/A  Exon_end_distances=1220---5
+om110223        17      40331395        mRNA_IDs=ENST00000254066---ENST00000268058Exon_end_distances=0---0

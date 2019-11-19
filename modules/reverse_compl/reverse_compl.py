@@ -12,7 +12,8 @@ __opts__ = []
 
 def main(parent):
     args = argsChk(parent)
-    revcompl = lambda x: ''.join([{'A':'T','a':'t','C':'G','c':'g','G':'C','g':'c','T':'A','t':'a'}[B] for B in x][::-1])
+    alphabet = {'A':'T','a':'t','C':'G','c':'g','G':'C','g':'c','T':'A','t':'a','N':'N','n':'n'}
+    revcompl = lambda x: ''.join([alphabet[B] for B in x][::-1])
     for a in args:
         print(a)
         print(revcompl(a))
@@ -35,7 +36,7 @@ def helpme(parent):
     if parent == __appname__:
         print("Usage:   {} [-h] <sequence_1> [<sequence_n>]\n".format(__appname__))
         print(opts)
-    else:   
+    else:
         print("Usage:   {} {} [-h] <sequence_1> [<sequence_n>]\n".format(parent, __appname__))
         print(opts)
     sys.exit()

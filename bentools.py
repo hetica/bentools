@@ -12,7 +12,7 @@ __modulespath__ = os.path.dirname( os.path.realpath( __file__ ) ) + "/modules/"
 
 
 def loadModule(m):
-    "Load sub-command"
+    """Load sub-command"""
     sys.path.append(__modulespath__ + m)
     module = importlib.import_module(m, package=None)
     return module
