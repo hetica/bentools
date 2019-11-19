@@ -15,7 +15,7 @@ __author__    = "Benoit Guibert <benoit.guibert@free.fr>"
 __shortdesc__ = "kmerCounts Count abundance of kmers of a single sequence in fastq file."
 
 
-ALPHABET = {'A':'T','a':'t','C':'G','c':'g','G':'C','g':'c','T':'A','t':'a','N':'N','n':'n'}
+ALPHABET = {'A':'T','T':'A','G':'C','C':'G','a':'t','t':'a','c':'g','g':'c','N':'N','n':'n'}
 
 def usage(appname):
     # https://docs.python.org/3/howto/argparse.html?highlight=argparse
@@ -89,7 +89,7 @@ class Kmer:
         ### Check sequence
         self._check_seq()
         ### Count number of different kmer in sequence
-        self.count = self._count()
+        self.count = self._kmers_count()
         ### Compute abundance
         self.abundances = self._abundances()
         self.mean = None
@@ -101,7 +101,7 @@ class Kmer:
             if char.upper() not in ALPHABET:
                 sys.exit("ErrorSeq: not a valid sequence")
 
-    def _count(self):
+    def _kmers_count(self):
         """ How many kmer in this sequence ? """
         n_kmer = len(self.seq) - self.k + 1
         if n_kmer < 1:
@@ -116,52 +116,40 @@ class Kmer:
         try:
             with gzip.open(self.fastq, 'rt') as f:
                 for line in f:
-                    if nline % 4 == 1:
-                        start = 0
-                        end = self.k
-                        for i in range(self.count):
-                            seq = self.seq[start:end]
-                            if seq in abundances:
-                                abundances[seq] += boyer_moore_match(line.rstrip(), seq)
-                            else:
-                                abundances[seq] = boyer_moore_match(line.rstrip(), seq)
-                            if not self.straight:
-                                if seq in abundances:
-                                    abundances[seq] += boyer_moore_match(line.rstrip(), rev_comp(seq))
-                                else:
-                                    abundances[seq] = boyer_moore_match(line.rstrip(), rev_comp(seq))
-                            start += 1
-                            end += 1
-                    nline += 1
+                    nline, abundances = self._count_abundances(line, nline, abundances)
         except OSError:
             with open(self.fastq) as f:
                 for line in f:
-                    if nline % 4 == 1:
-                        start = 0
-                        end = self.k
-                        for i in range(self.count):
-                            seq = self.seq[start:end]
-                            if seq in abundances:
-                                abundances[seq] += boyer_moore_match(line.rstrip(), seq)
-                            else:
-                                abundances[seq] = boyer_moore_match(line.rstrip(), seq)
-                            if not self.straight:
-                                if seq in abundances:
-                                    abundances[seq] += boyer_moore_match(line.rstrip(), rev_comp(seq))
-                                else:
-                                    abundances[seq] = boyer_moore_match(line.rstrip(), rev_comp(seq))
-                            start += 1
-                            end += 1
-                    nline += 1
+                    nline, abundances =  self._count_abundances(line, nline, abundances)
         return abundances
+
+    def _count_abundances(self, line, nline, abundances):
+        if nline % 4 == 1:
+            start = 0
+            end = self.k
+            for i in range(self.count):
+                seq = self.seq[start:end]
+                if seq in abundances:
+                    abundances[seq] += boyer_moore_match(line.rstrip(), seq)
+                else:
+                    abundances[seq] = boyer_moore_match(line.rstrip(), seq)
+                if not self.straight:
+                    if seq in abundances:
+                        abundances[seq] += boyer_moore_match(line.rstrip(), rev_comp(seq))
+                    else:
+                        abundances[seq] = boyer_moore_match(line.rstrip(), rev_comp(seq))
+                start += 1
+                end += 1
+        nline += 1
+        return nline, abundances
 
     def show_res(self):
         """ Show results """
-        print("abundances:")
+        print("kmer: abundance")
         for k,v in self.abundances.items():
             print(f"  {k}: {v}")
         print(f"Total abundance: {sum(self.abundances.values())}")
-        print(f"kmers in seq: {self.count} (sequence: {len(self.seq)}, k-mer: {self.k})")
+        print(f"kmers in sequence: {self.count} (seq: {len(self.seq)}, k-mer: {self.k})")
 
 
 def rev_comp(seq):
