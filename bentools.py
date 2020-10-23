@@ -6,7 +6,7 @@ import importlib                            # I could have use __import__ also
 
 __appname__ = "bentools"
 __licence__ = "GPL"
-__version__ = "0.6"
+__version__ = "0.7.0"
 __author__ = "Benoit Guibert <benoit.guibert@free.fr>"
 __modulespath__ = os.path.dirname( os.path.realpath( __file__ ) ) + "/modules/"
 
