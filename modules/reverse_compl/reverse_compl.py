@@ -12,12 +12,17 @@ __opts__ = []
 
 def main(parent):
     args = argsChk(parent)
-    alphabet = {'A':'T','a':'t','C':'G','c':'g','G':'C','g':'c','T':'A','t':'a','N':'N','n':'n'}
-    revcompl = lambda x: ''.join([alphabet[B] for B in x][::-1])
+    ### First soluce
+    # ~ alphabet = {'A':'T','a':'t','C':'G','c':'g','G':'C','g':'c','T':'A','t':'a','N':'N','n':'n'}
+    # ~ revcompl = lambda x: ''.join([alphabet[B] for B in x][::-1])
+    ### Second soluce
+    tab = str.maketrans("ACGTacgt","TGCAtgca")
+    revcompl = lambda x: x.translate(tab)[::-1]
+    ### print
     for a in args:
-        print(a)
+        #print(f"{a}:")
         print(revcompl(a))
-        print("---")
+        #print("---")
 
 def argsChk(parent):
     args = sys.argv[1:] if __appname__ in sys.argv[0] else sys.argv[2:]
